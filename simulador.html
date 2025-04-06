@@ -3,12 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OrquiTech - Simulador Fianceiro</title>
+    <title>Orchid - Simulador Fianceiro</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    
+    <!-- Desenvolvido por Mateus da Silva de Souza
+Adaptado por Julia Yoshimura Rocha e Sandro Guedes -->
+
     <div class="container">
-        <h1 class="tittle">Espécie de Orquidea plantada</h1>
+        <div class="logo-orchid">
+            <img src="orchid.png" alt="Logo Orchid" />
+          </div>
+        <h1 class="tittle">Simulador Financeiro</h1>
+        <label for="select_orquidea">Espécie da orquídea plantada:<br></label>
         <select class="select-style" id="select_orquidea">
             <option value="Phalaenopsis">Phalaenopsis</option>
             <option value="Cattleya">Cattleya</option>
@@ -26,6 +34,7 @@
                     <span class="erro" style="color: red;"></span>
                </div>
            </div>
+    
            <div class="form-group">
                <div>
                     <label for="input_gastos">Gastos gerais:</label>
@@ -37,7 +46,8 @@
                     <input class="input-style" type="text" id="input_venda" placeholder="R$">
                     <span class="erro" style="color: red;"></span>
                </div>
-           </div>
+            </div>
+
             <div class="btn-group">
                 <button class="btnLimpar" onclick="limpar()">Limpar</button>
                 <button class="btnCalcular open" onclick="verificaCampos()">Calcular</button>
@@ -46,13 +56,14 @@
     <div class="modal-container">
           <div class="modal-overlay"></div>
         <div class="modal">
-            <h1>Resultados</h1>
-            <p id="p_resultado"></p>
+            <h1 style="color: #68a354;">Resultados</h1>
+            <p id="p_resultado"></p>    
             <div class="boxButton">
                 <button class="btnCalcular close">OK</button>
             </div>
         </div>
     </div>
+     
 </body>
 </html>
 <script>
@@ -115,30 +126,29 @@
         var difLucro = lucroProjeto - lucroAtual
        
             p_resultado.innerHTML = `
-    <p>Cálculo feito com sucesso!</p>
-  <p>Tendo em base que temos 12% de prejuízo do total de orquídeas, é o que está sendo perdido por conta da falta de luminosidade correta.</p>
-  <br>
+    <p>Cálculo feito com sucesso!<br>
+  Tendo em base que temos 12% de prejuízo do total de orquídeas, é o que está sendo perdido por conta da falta de luminosidade correta.</p>
   <table border="1" cellpadding="8" cellspacing="0" style="border-collapse: collapse; width: 100%; text-align: left;">
     <thead>
-      <tr style="background-color: #f0f0f0;">
+      <tr style="background-color: #fff;">
         <th>Descrição</th>
         <th>Valor</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
+      <tr style="background-color: #fff;">
         <td>Lucro com 12% de perda (por falta de luminosidade)</td>
         <td><b>R$ ${lucroAtual.toFixed(2)}</b></td>
       </tr>
-      <tr>
+      <tr style="background-color: #fff;">
         <td>Total de orquídeas plantadas</td>
         <td><b>${orquideas}</b></td>
       </tr>
-      <tr>
+      <tr style="background-color: #fff;">
         <td>Lucro com o projeto (reduzindo perdas para 6%)</td>
         <td><b style="color:green;">R$ ${lucroProjeto.toFixed(2)}</b></td>
       </tr>
-      <tr>
+      <tr style="background-color: #fff;">
         <td>Diferença de lucro com o projeto</td>
         <td><b>R$ ${difLucro.toFixed(2)}</b></td>
       </tr>
@@ -150,33 +160,36 @@
             // a cada 1m² cabem no mínimo 9 orquideas
             var orquideaMin = tamanho * 9
             var orquideaMax = tamanho * 12
+            var sensores = 0;
+            
             // mínimo e máximo de orquides que podem ser plantadas 
             var difMin = orquideas - orquideaMin 
             var difMax = orquideaMax - orquideas 
-
             // lucro atual e lucro com o nosso projeto com a diferença de orquideas acrescentadas
             var adOrquideasAtualMin = ((orquideas + difMin) - orquideasPerdidas) * venda - gastos
             var adOrquideasProjetoMin = ((orquideas + difMin) - ((orquideas + difMin) * 0.06)) * venda - gastos
             var adOrquideasAtualMax = ((orquideas - difMax) - orquideasPerdidas) * venda - gastos
             var adOrquideasProjetoMax = ((orquideas - difMax) - ((orquideas - difMax) * 0.06)) * venda - gastos
-            var difLucroMin = adOrquideasProjetoMin - adOrquideasAtualMin
+            var difLucroMin = adOrquideasProjetoMin - adOrquideasAtualMin 
             var difLucroMax = adOrquideasProjetoMax - adOrquideasAtualMax
-            p_resultado.innerHTML += `Com uma plantação de ${tamanho}m² com ${orquideas} orquideas plantadas`
+            p_resultado.innerHTML += `<br>Com uma plantação de ${tamanho}m² com ${orquideas} orquideas plantadas`
             // De acordo com o tamanho da estufa vai fazer a tomada de decisões 
+
+            
             if (tamanho >= 5 && tamanho <= 10) {
                 if (orquideas < orquideaMin) {
                     p_resultado.innerHTML += `<br>Sua estufa se encaixa ao <b>Pequeno porte</b> (5m² a 10m²), quantidades de orquídeas esperadas para essa plantação:<br>
                     De ${orquideaMin} á ${orquideaMax} orquídeas.<br><br>
                     Se enquadre nesse cenário para que possa ter uma produção mais saudável, realize plantando no máximo ${difMax} orquídeas<br>
-                    Isso empacta em seus lucro: <br>
-                    Sem projeto <b>R$${adOrquideasAtualMin.toFixed(2)} </b><br>
+                    Isso impacta em seus lucros: <br>
+                    Sem projeto <b>R$${adOrquideasAtualMin.toFixed(2)}</b><br>
                     Com o projeto <b style="color:green">R$${adOrquideasProjetoMin.toFixed(2)}</b><br>
                     Tendo uma diferença de <b>R$${difLucroMin.toFixed(2)}</b>`
                 } else if (orquideas > orquideaMax) {
                     p_resultado.innerHTML += `<br>Sua estufa se encaixa ao <b>Pequeno porte</b> (5m² a 10m²), quantidades de orquídeas esperadas para essa plantação:<br>
                     De ${orquideaMin} á ${orquideaMax} orquídeas.<br><br>
                     Se enquadre nesse cenário para que possa ter uma produção mais saudável, realize plantando menos orquídeas, no mínimo ${difMin}.<br>
-                    Isso vai empactar diretamente em seu lucro:<br>
+                    Isso vai impactar diretamente em seu lucro:<br>
                     Sem projeto <b>R$${adOrquideasAtualMax.toFixed(2)} </b><br>
                     Com o projeto <b style="color:green">R$${adOrquideasProjetoMax.toFixed(2)}</b><br>
                     Tendo uma diferença de <b>R$${difLucroMax.toFixed(2)}</b><br>
@@ -192,7 +205,7 @@
                     p_resultado.innerHTML += `<br>Sua estufa se encaixa ao <b>Médio porte</b> (11m² a 50m²), quantidades de orquídeas esperadas para essa plantação:<br>
                     De ${orquideaMin} á ${orquideaMax} orquídeas.<br><br>
                     Se enquadre nesse cenário para que possa ter uma produção mais saudável,  realize plantando no máximo ${difMax} orquídeas ${difMin}<br>
-                    Isso empacta em seus lucro: <br>
+                    Isso impacta em seus lucros: <br>
                     Sem projeto <b>R$${adOrquideasAtualMin.toFixed(2)} </b><br>
                     Com o projeto <b style="color:green">R$${adOrquideasProjetoMin.toFixed(2)}</b><br>
                     Tendo uma diferença de <b>R$${difLucroMin.toFixed(2)}</b>`
@@ -200,7 +213,7 @@
                     p_resultado.innerHTML += `<br>Sua estufa se encaixa ao <b>Médio porte</b> (11m² a 50m²), quantidades de orquídeas esperadas para essa plantação:<br>
                     De ${orquideaMin} á ${orquideaMax} orquídeas.<br><br>
                     Se enquadre nesse cenário para que possa ter uma produção mais saudável,  realize plantando no máximo ${difMin} orquídeas. <br>
-                    Isso vai empactar diretamente em seu lucro:<br>
+                    Isso vai impactar diretamente em seu lucro:<br>
                     Sem projeto <b>R$${adOrquideasAtualMax.toFixed(2)} </b><br>
                     Com o projeto <b style="color:green">R$${adOrquideasProjetoMax.toFixed(2)}</b><br>
                     Tendo uma diferença de <b>R$${difLucroMax.toFixed(2)}</b><br>
@@ -216,7 +229,7 @@
                     p_resultado.innerHTML += `<br>Sua estufa se encaixa ao <b>Grande porte</b> (51m² a 500m²), quantidades de orquídeas esperadas para essa plantação:<br>
                     De ${orquideaMin} á ${orquideaMax} orquídeas.<br><br>
                     Se enquadre nesse cenário para que possa ter uma produção mais saudável, realize plantando no máximo ${difMax} orquídeas <br>
-                    Isso empacta em seus lucro: <br>
+                    Isso impacta em seus lucros: <br>
                     Sem projeto <b>R$${adOrquideasAtualMin.toFixed(2)} </b><br>
                     Com o projeto <b style="color:green">R$${adOrquideasProjetoMin.toFixed(2)}</b><br>
                     Tendo uma diferença de <b>R$${difLucroMin.toFixed(2)}</b>`
@@ -225,7 +238,7 @@
                     p_resultado.innerHTML += `<br>Sua estufa se encaixa ao <b>Grande porte</b> (51m² a 500m²), quantidades de orquídeas esperadas para essa plantação:<br>
                     De ${orquideaMin} á ${orquideaMax} orquídeas.<br><br>
                     Se enquadre nesse cenário para que possa ter uma produção mais saudável, realize plantando menos orquídeas, no mínimo ${difMin}.<br>
-                    Isso vai empactar diretamente em seu lucro:<br>
+                    Isso vai impactar diretamente em seu lucro:<br>
                     Sem projeto <b>R$${adOrquideasAtualMax.toFixed(2)} </b><br>
                     Com o projeto <b style="color:green">R$${adOrquideasProjetoMax.toFixed(2)}</b><br>
                     Tendo uma diferença de <b>R$${difLucroMax.toFixed(2)}</b><br>
