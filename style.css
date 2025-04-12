@@ -17,6 +17,7 @@ body {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 8px 9px #28063766;
+    background: linear-gradient(to bottom, #deb6f9, #c299db);
     width: 60%;
     height: 75%;
     z-index: 2;
@@ -35,13 +36,14 @@ body {
 
 .form-group{
     display: flex;
+    flex-direction: center;
     justify-content: space-around;
     margin-bottom: 15px;
     margin-top: 20px;
 }
 .form-group div{
     display: flex;
-    justify-content: spa;
+    justify-content: space-between;
     flex-direction: column;
     width: 48%;
     position: relative;
@@ -55,7 +57,7 @@ label {
     margin-bottom: 15px;
 }
 .select-style{
-    width: 57%;
+    width: 45%;
     height: 4.5%;
     border: 3px solid #b7d9b3;
     position: absolute;
@@ -66,6 +68,7 @@ label {
     background:#dbf6d8;;
     border-radius: 20px;
     overflow: hidden;
+    margin-left: 6%;
 }
 
 .input-style {
@@ -132,6 +135,7 @@ label {
     font-size: 20px;
     font-weight: bold;
 }
+
 .tittle{
     color: #68a354;
     margin-top: 10px;
@@ -163,7 +167,6 @@ label {
     
   }
   
-  
 .modal {
     position: relative;
     overflow-y: auto;
@@ -174,7 +177,6 @@ label {
     max-width: 70%;
     height: 90%;
     text-align: center;
-
   } 
 
   .modal img{
